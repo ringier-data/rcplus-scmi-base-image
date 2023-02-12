@@ -1,0 +1,120 @@
+name: auto-upgrade
+
+on:
+  push:
+    branches: [ "main" ]
+  schedule:
+    - cron: '30 5 * * *'
+  workflow_dispatch:
+
+jobs:
+  auto-upgrade:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: main
+      - name: Build Docker image
+        run: docker build --target scmi-build --tag local-image .
+      - name: Compare BoM
+        id: compare-bom
+        shell: bash
+        run: |
+          CURRENT_BOM="$(cat ${GITHUB_WORKSPACE}/.github/bom.current)"
+          NEW_BOM="$(docker run --rm local-image /bom.sh)"
+          echo "Current BOM: ${CURRENT_BOM}"
+          echo "New BOM: ${NEW_BOM}"
+          echo "compare-bom-result=$(if [ "${CURRENT_BOM}" = "${NEW_BOM}" ]; then echo NOCHANGE; else echo CHANGED; fi)" >> $GITHUB_OUTPUT
+          echo "new-bom-data=${NEW_BOM}"  >> $GITHUB_OUTPUT
+      - name: Update BOM record
+        if: ${{ success() && (github.event_name == 'push' || steps.compare-bom.outputs.compare-bom-result == 'CHANGED') }}
+        shell: bash
+        run: echo "${{ steps.compare-bom.outputs.new-bom-data }}" > ${GITHUB_WORKSPACE}/.github/bom.current
+      - name: Update README
+        if: ${{ success() && (github.event_name == 'push' || steps.compare-bom.outputs.compare-bom-result == 'CHANGED') }}
+        shell: bash
+        run: |
+          cat ${GITHUB_WORKSPACE}/README.md |tr '\n' '\r' |sed -r 's/(.*<!---\ BOM-starts\ --->\r).*/\1/' |tr '\r' '\n' > ${GITHUB_WORKSPACE}/~README.md
+          for i in ${{ steps.compare-bom.outputs.new-bom-data }}; do
+              if [[ "$i" =~ ^\*\** ]]; then
+                  echo "" >> ${GITHUB_WORKSPACE}/~README.md
+                  echo "### ${i}" >> ${GITHUB_WORKSPACE}/~README.md
+                  echo "" >> ${GITHUB_WORKSPACE}/~README.md
+              else if [[ "$i" =~ ^\`* ]]; then
+                  echo "Everything in ${i}" >> ${GITHUB_WORKSPACE}/~README.md
+              else
+                  echo "- ${i}" >> ${GITHUB_WORKSPACE}/~README.md
+              fi
+          done
+          echo "<!--- BOM-ends. Document ends here too --->" >> ${GITHUB_WORKSPACE}/~README.md
+          mv -f ${GITHUB_WORKSPACE}/~README.md ${GITHUB_WORKSPACE}/README.md
+      - name: Commit changes
+        if: ${{ success() && (github.event_name == 'push' || steps.compare-bom.outputs.compare-bom-result == 'CHANGED') }}
+        uses: stefanzweifel/git-auto-commit-action@v4.16.0
+        with:
+          commit_message: auto upgrade triggered by BoM changes
+          skip_fetch: true
+      - name: Bump version and push tag
+        if: ${{ success() && (github.event_name == 'push' || steps.compare-bom.outputs.compare-bom-result == 'CHANGED') }}
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          default_bump: patch
+          tag_prefix: 'v'
+      - name: Create a release
+        if: ${{ success() && (github.event_name == 'push' || steps.compare-bom.outputs.compare-bom-result == 'CHANGED') }}
+        uses: ncipollo/release-action@v1.12.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag: ${{ steps.tag_version.outputs.new_tag }}
+          name: Release ${{ steps.tag_version.outputs.new_tag }}
+          body: ${{ steps.tag_version.outputs.changelog }}
+      - name: Merge back to develop branch
+        if: ${{ success() && (github.event_name == 'push' || steps.compare-bom.outputs.compare-bom-result == 'CHANGED') }}
+        uses: everlytic/branch-merge@1.1.5
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          source_ref: main
+          target_branch: develop
+      - name: Set up QEMU
+        if: ${{ success() && (github.event_name == 'push' || steps.compare-bom.outputs.compare-bom-result == 'CHANGED') }}
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: arm64,amd64
+      - name: Set up Docker BuildKit
+        if: ${{ success() && (github.event_name == 'push' || steps.compare-bom.outputs.compare-bom-result == 'CHANGED') }}
+        uses: docker/setup-buildx-action@v2
+      - name: Login to image repository
+        if: ${{ success() && (github.event_name == 'push' || steps.compare-bom.outputs.compare-bom-result == 'CHANGED') }}
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push (slim)
+        if: ${{ success() && (github.event_name == 'push' || steps.compare-bom.outputs.compare-bom-result == 'CHANGED') }}
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          platforms: linux/amd64,linux/arm64
+          target: scmi-slim
+          tags: ghcr.io/ringier-data/scmi-base:latest-slim,ghcr.io/ringier-data/scmi-base:${{ steps.tag_version.outputs.new_version }}-slim
+      - name: Build and push (runtime)
+        if: ${{ success() && (github.event_name == 'push' || steps.compare-bom.outputs.compare-bom-result == 'CHANGED') }}
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          platforms: linux/amd64,linux/arm64
+          target: scmi-runtime
+          tags: ghcr.io/ringier-data/scmi-base:latest-runtime,ghcr.io/ringier-data/scmi-base:${{ steps.tag_version.outputs.new_version }}-runtime
+      - name: Build and push (build)
+        if: ${{ success() && (github.event_name == 'push' || steps.compare-bom.outputs.compare-bom-result == 'CHANGED') }}
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          platforms: linux/amd64,linux/arm64
+          target: scmi-build
+          tags: ghcr.io/ringier-data/scmi-base:latest-build,ghcr.io/ringier-data/scmi-base:${{ steps.tag_version.outputs.new_version }}-build
