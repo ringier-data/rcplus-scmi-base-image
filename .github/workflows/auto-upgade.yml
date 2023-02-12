@@ -42,7 +42,7 @@ jobs:
                   echo "### ${i}" >> ${GITHUB_WORKSPACE}/~README.md
                   echo "" >> ${GITHUB_WORKSPACE}/~README.md
               elif [[ "${i:0:1}" == "_" ]]; then
-                  echo "Everything in ${i}" >> ${GITHUB_WORKSPACE}/~README.md
+                  echo "- everything in ${i}" >> ${GITHUB_WORKSPACE}/~README.md
               else
                   echo "- ${i}" >> ${GITHUB_WORKSPACE}/~README.md
               fi
