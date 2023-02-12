@@ -24,12 +24,12 @@ The Github Actions regularly check the updates, and in case of new version(s), i
 
 ### **latest-runtime**
 
-Everything in _latest-slim_
+- everything in _latest-slim_
 - chromium-109.0.5414.74
 
 ### **latest-build**
 
-Everything in _latest-runtime_
+- everything in _latest-runtime_
 - gcc-12.2.1_git20220924
 - git-2.38.3
 - python3-3.10.10
