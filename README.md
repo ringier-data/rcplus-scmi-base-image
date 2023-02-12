@@ -15,11 +15,24 @@ The Github Actions regularly check the updates, and in case of new version(s), i
 
 <!--- Do not manually modify anything below this line! --->
 <!--- BOM-starts --->
-- alpine-3.16.3
-- bash-5.1.16
-- curl-7.83.1
-- haproxy-2.4.18
-- privoxy-3.0.33
-- sed-4.8
-- tor-0.4.7.10
+
+### **latest-slim**
+
+- alpine-3.17.2
+- nodejs-18.12.1
+- npm-9.1.2
+
+### **latest-runtime**
+
+Everything in _latest-slim_
+- chromium-109.0.5414.74
+
+### **latest-build**
+
+Everything in _latest-runtime_
+- gcc-12.2.1_git20220924
+- git-2.38.3
+- python3-3.10.10
+- pip-22.3.1
+- node-gyp-9.3.1
 <!--- BOM-ends. Document ends here too --->
