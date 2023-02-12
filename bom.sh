@@ -14,11 +14,11 @@ echo "alpine-$(cat /etc/alpine-release)" >> /tmp/bom.txt
 parse '^nodejs\|^npm' >> /tmp/bom.txt
 
 echo "**latest-runtime**" >> /tmp/bom.txt
-echo "\`latest-slim\`" >> /tmp/bom.txt
+echo "_latest-slim_" >> /tmp/bom.txt
 parse '^chromium' >> /tmp/bom.txt
 
 echo "**latest-build**" >> /tmp/bom.txt
-echo "\`latest-runtime\`" >> /tmp/bom.txt
+echo "_latest-runtime_" >> /tmp/bom.txt
 parse '^git\|^python3\|^gcc' >> /tmp/bom.txt
 echo "pip-$(pip --version | awk '{print $2}')" >> /tmp/bom.txt
 echo "node-gyp-$(node-gyp --version | sed 's/v/\1/')" >> /tmp/bom.txt

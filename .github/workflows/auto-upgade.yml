@@ -37,11 +37,11 @@ jobs:
         run: |
           cat ${GITHUB_WORKSPACE}/README.md |tr '\n' '\r' |sed -r 's/(.*<!---\ BOM-starts\ --->\r).*/\1/' |tr '\r' '\n' > ${GITHUB_WORKSPACE}/~README.md
           for i in ${{ steps.compare-bom.outputs.new-bom-data }}; do
-              if [[ "$i" =~ ^\*\** ]]; then
+              if [[ "${i:0:2}" == "**" ]]; then
                   echo "" >> ${GITHUB_WORKSPACE}/~README.md
                   echo "### ${i}" >> ${GITHUB_WORKSPACE}/~README.md
                   echo "" >> ${GITHUB_WORKSPACE}/~README.md
-              else if [[ "$i" =~ ^\`* ]]; then
+              elif [[ "${i:0:1}" == "_" ]]; then
                   echo "Everything in ${i}" >> ${GITHUB_WORKSPACE}/~README.md
               else
                   echo "- ${i}" >> ${GITHUB_WORKSPACE}/~README.md
