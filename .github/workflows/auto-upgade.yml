@@ -76,9 +76,8 @@ jobs:
         if: ${{ success() && (github.event_name == 'push' || steps.compare-bom.outputs.compare-bom-result == 'CHANGED') }}
         uses: docker/login-action@v2
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Build and push (slim)
         if: ${{ success() && (github.event_name == 'push' || steps.compare-bom.outputs.compare-bom-result == 'CHANGED') }}
         uses: docker/build-push-action@v4
@@ -86,7 +85,7 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           target: scmi-slim
-          tags: ghcr.io/ringier-data/scmi-base:latest-slim,ghcr.io/ringier-data/scmi-base:${{ steps.tag_version.outputs.new_version }}-slim
+          tags: zhaowde/scmi-base:latest-slim,zhaowde/scmi-base:${{ steps.tag_version.outputs.new_version }}-slim
       - name: Build and push (runtime)
         if: ${{ success() && (github.event_name == 'push' || steps.compare-bom.outputs.compare-bom-result == 'CHANGED') }}
         uses: docker/build-push-action@v4
@@ -94,7 +93,7 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           target: scmi-runtime
-          tags: ghcr.io/ringier-data/scmi-base:latest-runtime,ghcr.io/ringier-data/scmi-base:${{ steps.tag_version.outputs.new_version }}-runtime
+          tags: zhaowde/scmi-base:latest-runtime,zhaowde/scmi-base:${{ steps.tag_version.outputs.new_version }}-runtime
       - name: Build and push (build)
         if: ${{ success() && (github.event_name == 'push' || steps.compare-bom.outputs.compare-bom-result == 'CHANGED') }}
         uses: docker/build-push-action@v4
@@ -102,7 +101,7 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           target: scmi-build
-          tags: ghcr.io/ringier-data/scmi-base:latest-build,ghcr.io/ringier-data/scmi-base:${{ steps.tag_version.outputs.new_version }}-build
+          tags: zhaowde/scmi-base:latest-build,zhaowde/scmi-base:${{ steps.tag_version.outputs.new_version }}-build
       - name: Bump version and push tag
         if: ${{ success() && (github.event_name == 'push' || steps.compare-bom.outputs.compare-bom-result == 'CHANGED') }}
         uses: mathieudutour/github-tag-action@v6.1
