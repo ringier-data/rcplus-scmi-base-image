@@ -34,7 +34,7 @@ The Github Actions regularly check the updates, and in case of new version(s), i
 
 - everything in _latest-runtime_
 - gcc-12.2.1_git20220924
-- git-2.38.3
+- git-2.38.4
 - python3-3.10.10
 - pip-22.3.1
 - node-gyp-9.3.1
