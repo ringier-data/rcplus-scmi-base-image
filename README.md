@@ -28,7 +28,7 @@ The Github Actions regularly check the updates, and in case of new version(s), i
 ### **latest-runtime**
 
 - everything in _latest-slim_
-- chromium-109.0.5414.74
+- chromium-110.0.5481.177
 
 ### **latest-build**
 
