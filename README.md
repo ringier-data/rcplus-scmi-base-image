@@ -21,7 +21,7 @@ The Github Actions regularly check the updates, and in case of new version(s), i
 
 ### **latest-slim**
 
-- alpine-3.17.2
+- alpine-3.17.3
 - nodejs-18.14.2
 - npm-9.1.2
 
