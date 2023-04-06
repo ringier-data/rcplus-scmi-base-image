@@ -28,14 +28,14 @@ The Github Actions regularly check the updates, and in case of new version(s), i
 ### **latest-runtime**
 
 - everything in _latest-slim_
-- chromium-111.0.5563.146
+- chromium-112.0.5615.49
 
 ### **latest-build**
 
 - everything in _latest-runtime_
 - gcc-12.2.1_git20220924
 - git-2.38.4
-- python3-3.10.10
+- python3-3.10.11
 - pip-22.3.1
 - node-gyp-9.3.1
 <!--- BOM-ends. Document ends here too --->
