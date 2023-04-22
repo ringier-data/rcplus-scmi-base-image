@@ -53,7 +53,7 @@ jobs:
         if: ${{ success() && (github.event_name == 'push' || steps.compare-bom.outputs.compare-bom-result == 'CHANGED') }}
         uses: stefanzweifel/git-auto-commit-action@v4.16.0
         with:
-          commit_message: auto upgrade triggered by BoM changes
+          commit_message: 'chore: auto upgrade triggered by BoM changes'
           skip_fetch: true
       - name: Compute new version and tag without pushing
         if: ${{ success() && (github.event_name == 'push' || steps.compare-bom.outputs.compare-bom-result == 'CHANGED') }}
@@ -101,7 +101,7 @@ jobs:
           push: true
           platforms: linux/amd64,linux/arm64
           target: scmi-build
-          tags: zhaowde/scmi-base:latest-build,zhaowde/scmi-base:${{ steps.tag_version.outputs.new_version }}-build
+          tags: zhaowde/scmi-base:latest-build,zhaowde/scmi-base:${{ steps.tag_version.outputs.new_version }}-build,zhaowde/scmi-base:${{ steps.tag_version.outputs.new_version }},zhaowde/scmi-base:latest
       - name: Bump version and push tag
         if: ${{ success() && (github.event_name == 'push' || steps.compare-bom.outputs.compare-bom-result == 'CHANGED') }}
         uses: mathieudutour/github-tag-action@v6.1
