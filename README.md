@@ -21,21 +21,22 @@ The Github Actions regularly check the updates, and in case of new version(s), i
 
 ### **latest-slim**
 
-- alpine-3.17.3
-- nodejs-18.14.2
-- npm-9.1.2
+- ubuntu-22.10-kinetic
+- node-18.16.0
+- npm-9.6.5
 
 ### **latest-runtime**
 
 - everything in _latest-slim_
-- chromium-112.0.5615.165
+- firefox-111.0
+- playwright-1.32.3
 
 ### **latest-build**
 
 - everything in _latest-runtime_
-- gcc-12.2.1_git20220924
-- git-2.38.4
-- python3-3.10.11
-- pip-22.3.1
+- git-2.37.2
+- gcc-12.2.0
+- python3-3.10.7
+- pip-23.1
 - node-gyp-9.3.1
 <!--- BOM-ends. Document ends here too --->
