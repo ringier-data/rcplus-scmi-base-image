@@ -37,6 +37,6 @@ The Github Actions regularly check the updates, and in case of new version(s), i
 - git-2.37.2
 - gcc-12.2.0
 - python3-3.10.7
-- pip-23.1
+- pip-23.1.1
 - node-gyp-9.3.1
 <!--- BOM-ends. Document ends here too --->
