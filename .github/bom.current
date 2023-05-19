@@ -1,1 +1,1 @@
-**latest-slim** ubuntu-22.10-kinetic node-18.16.0 npm-9.6.6 **latest-runtime** _latest-slim_ firefox-112.0 playwright-1.33.0 **latest-build** _latest-runtime_ git-2.37.2 gcc-12.2.0 python3-3.10.7 pip-23.1.2 node-gyp-9.3.1
+**latest-slim** ubuntu-22.10-kinetic node-18.16.0 npm-9.6.7 **latest-runtime** _latest-slim_ firefox-112.0 playwright-1.33.0 **latest-build** _latest-runtime_ git-2.37.2 gcc-12.2.0 python3-3.10.7 pip-23.1.2 node-gyp-9.3.1

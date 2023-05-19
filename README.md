@@ -23,7 +23,7 @@ The Github Actions regularly check the updates, and in case of new version(s), i
 
 - ubuntu-22.10-kinetic
 - node-18.16.0
-- npm-9.6.6
+- npm-9.6.7
 
 ### **latest-runtime**
 
