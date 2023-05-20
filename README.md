@@ -28,8 +28,8 @@ The Github Actions regularly check the updates, and in case of new version(s), i
 ### **latest-runtime**
 
 - everything in _latest-slim_
-- firefox-112.0
-- playwright-1.33.0
+- firefox-113.0
+- playwright-1.34.0
 
 ### **latest-build**
 
