@@ -29,7 +29,7 @@ The Github Actions regularly check the updates, and in case of new version(s), i
 
 - everything in _latest-slim_
 - firefox-113.0
-- playwright-1.35.0
+- playwright-1.35.1
 
 ### **latest-build**
 
