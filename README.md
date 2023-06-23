@@ -22,8 +22,8 @@ The Github Actions regularly check the updates, and in case of new version(s), i
 ### **latest-slim**
 
 - ubuntu-22.10-kinetic
-- node-18.16.0
-- npm-9.7.1
+- node-18.16.1
+- npm-9.7.2
 
 ### **latest-runtime**
 
