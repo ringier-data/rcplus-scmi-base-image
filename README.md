@@ -21,8 +21,8 @@ The Github Actions regularly check the updates, and in case of new version(s), i
 
 ### **latest-slim**
 
-- ubuntu-22.10-kinetic
-- node-18.16.1
+- ubuntu-23.04-lunar
+- node-20.4.0
 - npm-9.8.0
 
 ### **latest-runtime**
@@ -34,9 +34,9 @@ The Github Actions regularly check the updates, and in case of new version(s), i
 ### **latest-build**
 
 - everything in _latest-runtime_
-- git-2.37.2
+- git-2.39.2
 - gcc-12.2.0
-- python3-3.10.7
-- pip-23.1.2
+- python3-3.11.2
+- pip-23.0.1
 - node-gyp-9.4.0
 <!--- BOM-ends. Document ends here too --->
