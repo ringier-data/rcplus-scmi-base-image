@@ -3,7 +3,7 @@
 #===============================================================================
 # Target 1: scmi-base:slim
 #   - nodejs and npm
-FROM ubuntu:22.10 AS scmi-slim
+FROM ubuntu:23.04 AS scmi-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -16,7 +16,7 @@ RUN \
     gpg \
     wget \
     > /dev/null && \
-  curl -fsSL https://deb.nodesource.com/setup_18.x | bash - > /dev/null && \
+  curl -fsSL https://deb.nodesource.com/setup_20.x | bash - > /dev/null && \
   apt-get -qq install --assume-yes --no-install-recommends \
     nodejs \
     > /dev/null && \
@@ -63,7 +63,6 @@ RUN \
     python3 \
     > /dev/null && \
   npm --silent install --global --no-fund --no-audit node-gyp && \
-  pip install --upgrade --no-compile --quiet --no-input --no-cache-dir --disable-pip-version-check --no-color --root-user-action=ignore pip && \
   ( npm --silent cache clean --force || echo "" ) && \
   apt-get -qq clean && \
   rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
