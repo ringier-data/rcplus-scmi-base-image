@@ -22,14 +22,14 @@ The Github Actions regularly check the updates, and in case of new version(s), i
 ### **latest-slim**
 
 - ubuntu-22.10-kinetic
-- node-18.16.0
-- npm-9.6.7
+- node-18.16.1
+- npm-9.8.0
 
 ### **latest-runtime**
 
 - everything in _latest-slim_
 - firefox-113.0
-- playwright-1.34.3
+- playwright-1.35.1
 
 ### **latest-build**
 
@@ -38,5 +38,5 @@ The Github Actions regularly check the updates, and in case of new version(s), i
 - gcc-12.2.0
 - python3-3.10.7
 - pip-23.1.2
-- node-gyp-9.3.1
+- node-gyp-9.4.0
 <!--- BOM-ends. Document ends here too --->
