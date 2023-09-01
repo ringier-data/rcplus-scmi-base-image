@@ -23,7 +23,7 @@ The Github Actions regularly check the updates, and in case of new version(s), i
 
 - ubuntu-23.04-lunar
 - node-20.5.1
-- npm-9.8.1
+- npm-10.0.0
 
 ### **latest-runtime**
 
