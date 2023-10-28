@@ -14,12 +14,15 @@ RUN \
     ca-certificates \
     curl \
     gpg \
+    gnupg \
     wget \
     > /dev/null && \
-  curl -fsSL https://deb.nodesource.com/setup_20.x | bash - > /dev/null && \
-  apt-get -qq install --assume-yes --no-install-recommends \
-    nodejs \
-    > /dev/null && \
+  mkdir -p /etc/apt/keyrings && \
+  curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
+  export NODE_MAJOR=20 && \
+  echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" > /etc/apt/sources.list.d/nodesource.list && \
+  apt-get -qq update > /dev/null && \
+  apt-get -qq install --assume-yes --no-install-recommends nodejs > /dev/null && \
   npm --silent install --global --no-fund --no-audit npm && \
   ( npm --silent cache clean --force || echo "" ) && \
   apt-get -qq clean && \
@@ -35,6 +38,7 @@ ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
 ENV PLAYWRIGHT_BROWSERS_PATH=/opt/pw-browsers
 
 RUN \
+  mkdir -p /opt/pw-browsers && \
   apt-get -qq update > /dev/null && \
   npm --silent install --global --no-fund --no-audit playwright && \
   npx --silent playwright install --with-deps firefox > /dev/null && \
