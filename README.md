@@ -22,7 +22,7 @@ The Github Actions regularly check the updates, and in case of new version(s), i
 ### **latest-slim**
 
 - ubuntu-23.04-lunar
-- node-20.5.1
+- node-20.9.0
 - npm-10.2.1
 
 ### **latest-runtime**

@@ -1,1 +1,1 @@
-**latest-slim** ubuntu-23.04-lunar node-20.5.0 npm-10.2.1 **latest-runtime** _latest-slim_ firefox-118.0.1 playwright-1.39.0 **latest-build** _latest-runtime_ git-2.39.2 gcc-12.3.0 python3-3.11.4 pip-23.0.1 node-gyp-9.4.1
+**latest-slim** ubuntu-23.04-lunar node-20.9.0 npm-10.2.1 **latest-runtime** _latest-slim_ firefox-118.0.1 playwright-1.39.0 **latest-build** _latest-runtime_ git-2.39.2 gcc-12.3.0 python3-3.11.4 pip-23.0.1 node-gyp-9.4.1
