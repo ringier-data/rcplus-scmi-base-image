@@ -38,5 +38,5 @@ The Github Actions regularly check the updates, and in case of new version(s), i
 - gcc-12.3.0
 - python3-3.11.4
 - pip-23.0.1
-- node-gyp-9.4.0
+- node-gyp-9.4.1
 <!--- BOM-ends. Document ends here too --->
