@@ -15,6 +15,7 @@ RUN \
     curl \
     gpg \
     gnupg \
+    lsb-release \
     wget \
     > /dev/null && \
   mkdir -p /etc/apt/keyrings && \
