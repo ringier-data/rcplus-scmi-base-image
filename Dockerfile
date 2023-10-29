@@ -43,7 +43,7 @@ RUN \
   apt-get -qq update > /dev/null && \
   # we don't let npm install the latest version of playwright, because this version has to be strictly aligned with \
   # the version used by https://github.com/zhaow-de/playwright-cluster
-  npm --silent install --global --no-fund --no-audit playwright@1.39.0 && \
+  npm --silent install --global --no-fund --no-audit playwright@1.36.1 && \
   npx --silent playwright install --with-deps firefox > /dev/null && \
   ( npm --silent cache clean --force || echo "" ) && \
   apt-get -qq clean && \
