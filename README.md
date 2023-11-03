@@ -23,7 +23,7 @@ The Github Actions regularly check the updates, and in case of new version(s), i
 
 - ubuntu-23.04-lunar
 - node-20.9.0
-- npm-10.2.2
+- npm-10.2.3
 
 ### **latest-runtime**
 
@@ -38,5 +38,5 @@ The Github Actions regularly check the updates, and in case of new version(s), i
 - gcc-12.3.0
 - python3-3.11.4
 - pip-23.0.1
-- node-gyp-10.0.0
+- node-gyp-10.0.1
 <!--- BOM-ends. Document ends here too --->
